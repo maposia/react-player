@@ -168,7 +168,10 @@ export default class FilePlayer extends Component {
       this.dash.reset()
     }
     if (this.shouldUseHLS(url)) {
-      getSDK(HLS_SDK_URL.replace('VERSION', hlsVersion), HLS_GLOBAL).then(Hls => {
+      console.log(hlsOptions.hlsUrl)
+      const hlsUrl = hlsOptions.hlsUrl || HLS_SDK_URL.replace('VERSION', hlsVersion)
+      
+      getSDK(hlsUrl, HLS_GLOBAL).then(Hls => {
         this.hls = new Hls(hlsOptions)
         this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
           this.props.onReady()
